@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>メビウスの帯 工作キット</title>
+<meta name="description" content="メビウスの帯とその変種を作って、切って、確かめる工作キット。基本の帯、540°ひねり（切ると三つ葉結び目）、2重メビウス、クラインの壺もどきの型紙と実験記録つき。">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="メビウス工作">
+<style>
+  :root{
+    --ink:#2f3437; --paper:#f6faf9; --card:#ffffff; --line:#cfe0dc;
+    --accent:#268496; --accent2:#e07b39; --good:#4a9e57;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; padding:0; }
+  body{
+    font-family:"Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic",sans-serif;
+    background:var(--paper); color:var(--ink); line-height:1.65;
+    padding:0 12px 48px;
+  }
+  .wrap{ max-width:760px; margin:0 auto; }
+  header{ text-align:center; padding:22px 4px 6px; }
+  header h1{ font-size:1.66rem; margin:0 0 4px; letter-spacing:.03em; }
+  header .sub{ color:#63736f; font-size:.95rem; margin:0; }
+  header .mark{ font-size:2rem; color:var(--accent); }
+  #bootwarn{
+    display:none; background:#fdeeda; border:1.5px solid var(--accent2); border-radius:12px;
+    padding:12px 14px; margin:14px 0; font-size:.92rem;
+  }
+  .tabs{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:18px 0 4px; }
+  .tabs button{
+    padding:11px 6px; font-size:.98rem; font-weight:700; border-radius:14px;
+    border:2px solid var(--line); background:#fff; color:var(--ink); cursor:pointer;
+    font-family:inherit;
+  }
+  .tabs button.on{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .tabs button small{ display:block; font-weight:400; font-size:.76rem; opacity:.85; }
+  section.card{
+    background:var(--card); border:1.5px solid var(--line); border-radius:18px;
+    padding:16px 16px 18px; margin:16px 0;
+    box-shadow:0 2px 8px rgba(30,80,80,.06);
+  }
+  section.card h2{ font-size:1.18rem; margin:2px 0 8px; }
+  section.card h2 .no{
+    display:inline-block; background:var(--accent2); color:#fff; border-radius:50%;
+    width:1.55em; height:1.55em; line-height:1.55em; text-align:center; font-size:.92em; margin-right:.35em;
+  }
+  .note{ color:#63736f; font-size:.88rem; }
+  .sheetwrap{ text-align:center; }
+  .sheetwrap canvas{ width:100%; height:auto; border:1px solid var(--line); border-radius:8px; background:#fff; }
+  .btns{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:10px; }
+  button.act{
+    padding:12px 20px; font-size:1.02rem; font-weight:700; border-radius:12px; border:none;
+    background:var(--accent); color:#fff; cursor:pointer; font-family:inherit;
+    box-shadow:0 2px 5px rgba(30,90,100,.3);
+  }
+  button.act.sub{ background:#fff; color:var(--ink); border:2px solid var(--line); box-shadow:none; }
+  .exp{
+    border:1.5px solid var(--line); border-radius:14px; padding:12px 14px; margin:12px 0; background:#fbfdfc;
+  }
+  .exp h3{ margin:0 0 6px; font-size:1.05rem; }
+  .exp h3 .tag{
+    display:inline-block; background:var(--accent); color:#fff; border-radius:8px;
+    padding:0 .5em; margin-right:.45em; font-size:.88em;
+  }
+  .exp .steps{ margin:6px 0; }
+  .exp .result{
+    display:none; background:#fdf6e9; border:1.5px solid #ecd9ae; border-radius:10px;
+    padding:10px 12px; margin-top:10px;
+  }
+  .exp .result.open{ display:block; }
+  .exp .result h4{ margin:0 0 4px; font-size:.95rem; color:#8a5a20; }
+  .manual h3{ margin:16px 0 6px; font-size:1.05rem; color:#1f6070; }
+  .manual h3:first-child{ margin-top:4px; }
+  .manual ol, .manual ul{ margin:6px 0 6px 1.2em; padding:0; }
+  .manual li{ margin:4px 0; }
+  .column{
+    background:#eef6f8; border:1.5px solid #bcd6dd; border-radius:14px; padding:12px 14px; margin-top:14px;
+  }
+  .column h3{ color:#1f6070; margin-top:0; }
+  footer{ text-align:center; color:#84958f; font-size:.82rem; margin-top:26px; }
+</style>
+<script>
+  window.__mobBootTimer = setTimeout(function(){
+    var el = document.getElementById('bootwarn');
+    if (el && !window.__mobBooted) el.style.display = 'block';
+  }, 4000);
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark">∞</div>
+    <h1>メビウスの帯 工作キット</h1>
+    <p class="sub">作って、なぞって、切って確かめる。表と裏がない不思議な帯の実験キットです。</p>
+  </header>
+
+  <div id="bootwarn">アプリの読み込みに失敗したようです。お手数ですが、ページを再読み込みしてみてください。それでも直らない場合は、ブラウザを変えてお試しください。</div>
+
+  <div class="tabs" role="tablist" id="varianttabs"></div>
+
+  <section class="card">
+    <h2><span class="no">1</span>型紙を印刷する</h2>
+    <p class="note" id="sheetnote"></p>
+    <div class="sheetwrap">
+      <canvas id="sheetcanvas" width="3508" height="2480"></canvas>
+      <div class="btns">
+        <button class="act" id="btn-download" type="button">型紙（A4・300dpi）をダウンロード</button>
+      </div>
+      <p class="note">ダウンロードした画像を、A4判・横向き・「実際のサイズ（100%）」で印刷してください。型紙の右上の黒い線が実物でちょうど5cmになっていれば正しい大きさです。帯は少し長めの紙なので、端まで印刷できる設定か確かめてください。</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span class="no">2</span>実験してみよう</h2>
+    <p class="note">まず「よそう」を考えて（型紙の記録欄に書けます）、実験してから「けっかを見る」を押してください。結果はすべて、位相幾何学（トポロジー）の計算で確かめたものだけを載せています。</p>
+    <div id="explist"></div>
+  </section>
+
+  <section class="card manual">
+    <h2><span class="no">3</span>説明書</h2>
+    <div id="manual-body"></div>
+    <div class="column">
+      <h3>コラム ― メビウスとトポロジー</h3>
+      <p>1858年、ドイツの数学者アウグスト・フェルディナント・メビウスが、この不思議な帯について発表しました。同じ年にもう一人の数学者ヨハン・リスティングも独立に同じものを発見していたことが知られています。メビウスは天文学者としても活躍した人でした。</p>
+      <p>メビウスの帯は「位相幾何学（トポロジー）」という分野の代表例です。トポロジーは、図形を伸ばしたり曲げたりしても変わらない性質（つながり方、表裏、縁の数など）を調べる数学です。紙の帯を1回ひねるだけで「表と裏の区別」が消えてしまう――この小さな工作が、現代数学の大きな世界への入り口になっています。画家エッシャーの版画『メビウスの輪』では、アリが帯の上を延々と歩き続ける姿が描かれています。</p>
+      <p>この工作は「数学の絵本」第10話『メビウスの帯』の「やってみよう」と連動しています。お話を読んだあとで手を動かすと、不思議さが倍増します。</p>
+    </div>
+  </section>
+
+  <footer>
+    メビウスの帯 工作キット ― 実験の結果は位相幾何学の計算で検証済みのものだけを掲載しています。
+  </footer>
+</div>
+<noscript><p style="text-align:center">このアプリはJavaScriptで動きます。ブラウザの設定でJavaScriptを有効にしてください。</p></noscript>
+<script>
+'use strict';
+/* メビウスの帯 工作キット 本体
+   実験結果の記述は verify-topology.js / verify-topology2.js で検証済みのものだけを使う：
+   - 中心切り（n=1）：1本・長さ2倍・Lk=−2 → 4半回ひねり・両面
+   - 1/3切り（n=1）：中央=メビウス、外側=4半回、Lk=−1 で鎖状に絡む
+   - 中心切り（n=3）：中心線が (2,3) トーラス結び目 = 三つ葉結び目
+   - 1/3切り（n=3）：中央=3半回、外側=三つ葉結び目の帯、Lk=−3 で絡む
+   - 2重メビウス：合体帯は 2半回・両面・縁2本（= 1本の帯）
+*/
+const VARIANTS = [
+  {
+    id: 'basic', name: '基本のメビウスの帯', sub: '半回ひねり（180°）', twist: '180°',
+    sheetTitle: '基本のメビウスの帯（半回ひねり）',
+    strips: [
+      { label: '実験用A ― 中心切りの帯', guides: 'center' },
+      { label: '実験用B ― 端から1/3切りの帯', guides: 'thirds' }
+    ],
+    records: [
+      { title: '実験2（中心切り）', left: 'よそう', right: 'けっか' },
+      { title: '実験3（1/3切り）', left: 'よそう', right: 'けっか' }
+    ],
+    exps: [
+      {
+        tag: '実験1', title: '矢印の旅（切らない実験）',
+        steps: '帯を作ったら、真ん中の矢印を指でたどって1周してみましょう。上の縁の ● 印も、どこまでもたどってみてください。',
+        result: '矢印は、上下さかさまになって戻ってきます。ひねりの所で帯の表と裏が入れ替わるため、1周すると「裏側」を歩いていることになるのです。この帯には表と裏の区別がありません（面は1つだけ）。また ● の縁は途中で ▲ の縁に切り替わり、2周してやっと元に戻ります。つまり縁は、全部つながった1本だけです。'
+      },
+      {
+        tag: '実験2', title: '中心を切る（実験用A）',
+        steps: 'まず、どうなるか予想を型紙の記録欄に書きましょう。それから赤い破線（中心線）に沿って、はさみで切り続けます。途中で帯が裏返っても気にせず、線をたどって1周切り終えてください。',
+        result: '2本には分かれず、1本の長い帯になります。長さは元の2倍、幅は半分です。ひねりは全部で4半回分（2回転）入っていて、今度は表と裏の区別がある帯になっています。「真ん中を切れば2本に分かれるはず」という予想は、メビウスの帯では裏切られます。'
+      },
+      {
+        tag: '実験3', title: '端から1/3を切る（実験用B）',
+        steps: '予想を書いてから、青い破線（端から1/3の線）のどちらか1本に沿って、はさみで切り続けます。線が途中で反対側の線に移っても、そのまま切り続けてください（実は2本の青い線は、帯の上では1本につながっています）。',
+        result: '今度は2本に分かれます。小さい方は幅1/3のメビウスの帯で、やはり表裏の区別がありません。大きい方は長さ2倍・ひねり4半回分の帯です。しかも2本は鎖のように絡み合っていて、引っ張っても離れません。'
+      }
+    ]
+  },
+  {
+    id: 'twist3', name: '3半回ひねりの帯', sub: '540°ひねり・切ると三つ葉結び目', twist: '540°',
+    sheetTitle: '3半回ひねり（540°）の帯',
+    strips: [
+      { label: '実験用A ― 中心切りの帯', guides: 'center' },
+      { label: '実験用B ― 端から1/3切りの帯', guides: 'thirds' }
+    ],
+    records: [
+      { title: '実験2（中心切り）', left: 'よそう', right: 'けっか' },
+      { title: '実験3（1/3切り）', left: 'よそう', right: 'けっか' }
+    ],
+    exps: [
+      {
+        tag: '実験1', title: '矢印の旅（切らない実験）',
+        steps: '540°（3半回）ひねって帯を作ります。矢印を指でたどって1周してみましょう。',
+        result: '矢印はやはり上下さかさまになって戻ってきます。ひねりの回数が奇数（3半回）なので、この帯も表と裏の区別がなく、縁は1本だけです。「ひねりが奇数回なら片面、偶数回なら両面」という決まりが見えてきます。'
+      },
+      {
+        tag: '実験2', title: '中心を切る（実験用A）',
+        steps: '予想を書いてから、赤い破線（中心線）に沿って1周切り続けましょう。',
+        result: '1本の長い帯（長さ2倍・幅半分）になりますが、ただの帯ではありません。帯の形全体が「三つ葉結び目（トレフォイル）」という結び目になっています。両端がつながっているので、切らない限りほどくことはできません。なお、ひねる向きを逆にして作ると、結び目は鏡に映した向き（鏡像）になります。'
+      },
+      {
+        tag: '実験3', title: '端から1/3を切る（実験用B）',
+        steps: '予想を書いてから、青い破線に沿って切り続けましょう。',
+        result: '2本に分かれます。中央の帯は3半回ひねりの帯のまま（幅1/3）です。外側の帯は三つ葉結び目の形になっていて、2本は絡み合って離れません。結び目が「外側の帯」に現れるのが面白いところです。'
+      }
+    ]
+  },
+  {
+    id: 'double', name: '2重メビウスの帯', sub: '2枚重ねて一緒にひねる', twist: '180°（2枚一緒に）',
+    sheetTitle: '2重メビウスの帯（2枚重ねて作る）',
+    strips: [
+      { label: '帯①（作る前に、真ん中へ色ペンで線を引いておく）', guides: 'light' },
+      { label: '帯②（帯①にぴったり重ねる）', guides: 'light' }
+    ],
+    records: [
+      { title: '実験1（線をたどる）', left: 'よそう', right: 'けっか' },
+      { title: '実験2（縁を数える）', left: 'よそう', right: 'けっか' }
+    ],
+    exps: [
+      {
+        tag: '実験1', title: '2枚は本当に2枚？（線をたどる）',
+        steps: '作る前に、帯①の真ん中に色ペンで線を引いておきます。2枚をぴったり重ね、重ねたまま一緒に半回ひねって、両端を貼ります。そのあと、色ペンの線を指でたどってみましょう。何周で戻ってくるでしょう。',
+        result: '線は1周では戻ってきません。1周すると、線はもう一方の帯の上に移っていて、2周してやっと元の場所に戻ります。つまり、重なった2枚は別々の帯ではなく、つながった「1本の長い帯」だったのです。長さは1枚の2倍、ひねりは全部で1回転分で、表と裏の区別がある帯です。'
+      },
+      {
+        tag: '実験2', title: '縁を数える',
+        steps: 'ふつうのメビウスの帯の縁は1本でした。この2重の帯の縁はどうでしょう。縁に沿って指でたどって、数を確かめてみましょう。',
+        result: '縁は2本あります。実験1のとおり「1本の帯」なのに、性質はふつうのメビウスの帯とは違うのです。「2枚重ね＝2本の帯」という思い込みが、気持ちよく裏切られる実験です。'
+      }
+    ]
+  },
+  {
+    id: 'klein', name: '挑戦編：クラインの壺もどき', sub: 'メビウスの帯2枚を縁で貼る', twist: '180°',
+    sheetTitle: '挑戦編 ― クラインの壺もどき（近似模型）',
+    strips: [
+      { label: 'メビウスの帯 1枚目', guides: 'light' },
+      { label: 'メビウスの帯 2枚目', guides: 'light' }
+    ],
+    records: [
+      { title: '作ってみた感想・気づいたこと', left: 'メモ', right: 'メモ' }
+    ],
+    exps: [
+      {
+        tag: '挑戦', title: 'メビウスの帯2枚を、縁同士で貼り合わせる',
+        steps: 'まず基本のメビウスの帯を2枚作ります（ひねりの向きは2枚とも同じにしてください）。それぞれの縁は「1本の輪」になっています。その縁同士を、少しずつ位置を合わせながら、テープでぐるりと留めていきます。急がず、1〜2cmずつ進めるのがコツです。',
+        result: '縁同士を全部貼り合わせると、「クラインの壺」という閉じた曲面ができます。クラインの壺はメビウスの帯と同じく表と裏の区別がない不思議な形で、内側と外側がつながっています。ただし大切な注意：これは「もどき（近似模型）」です。紙の帯では、縁を最後までぴったり合わせることができません（途中でどうしても無理がかかります）。本当のクラインの壺は、私たちの3次元の世界では自分自身と交わらないようには作れない形なのです。'
+      }
+    ]
+  }
+];
+
+const $ = id => document.getElementById(id);
+const state = { variant: 'basic' };
+function cur() { return VARIANTS.find(v => v.id === state.variant); }
+
+/* ---------- 型紙描画 ---------- */
+const SHEET_W = 3508, SHEET_H = 2480;
+const STRIP_LEN = 2953, STRIP_W = 449, TAB = 236;
+function drawStrip(ctx, x, y, opts) {
+  const { guides } = opts;
+  // 下地
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(x, y, STRIP_LEN, STRIP_W);
+  ctx.fillStyle = 'rgba(38,132,150,0.05)';
+  ctx.fillRect(x, y, STRIP_LEN, STRIP_W);
+  const cy = y + STRIP_W / 2;
+  // ガイド線
+  if (guides === 'center' || guides === 'light') {
+    ctx.strokeStyle = guides === 'center' ? '#d64541' : 'rgba(90,100,100,.5)';
+    ctx.lineWidth = guides === 'center' ? 8 : 4;
+    ctx.setLineDash([34, 24]);
+    ctx.beginPath(); ctx.moveTo(x + 8, cy); ctx.lineTo(x + STRIP_LEN - 8, cy); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  if (guides === 'thirds') {
+    ctx.strokeStyle = 'rgba(90,100,100,.45)'; ctx.lineWidth = 4; ctx.setLineDash([22, 18]);
+    ctx.beginPath(); ctx.moveTo(x + 8, cy); ctx.lineTo(x + STRIP_LEN - 8, cy); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.strokeStyle = '#2f6fd0'; ctx.lineWidth = 8; ctx.setLineDash([34, 24]);
+    [y + STRIP_W / 3, y + 2 * STRIP_W / 3].forEach(gy => {
+      ctx.beginPath(); ctx.moveTo(x + 8, gy); ctx.lineTo(x + STRIP_LEN - 8, gy); ctx.stroke();
+    });
+    ctx.setLineDash([]);
+  }
+  // 縁の印：上=●、下=▲（組み立てると1本につながる）
+  ctx.fillStyle = '#268496';
+  for (let mx = x + 120; mx < x + STRIP_LEN - TAB - 60; mx += 300) {
+    ctx.beginPath(); ctx.arc(mx, y + 54, 17, 0, Math.PI * 2); ctx.fill();
+    const tx = mx + 150;
+    ctx.beginPath();
+    ctx.moveTo(tx, y + STRIP_W - 78); ctx.lineTo(tx + 21, y + STRIP_W - 36); ctx.lineTo(tx - 21, y + STRIP_W - 36);
+    ctx.closePath(); ctx.fill();
+  }
+  // 歩く矢印（真ん中）：シェブロン＋上の点（上下の目印）
+  ctx.strokeStyle = '#33555e'; ctx.lineWidth = 13; ctx.lineCap = 'round';
+  for (let ax = x + 210; ax < x + STRIP_LEN - TAB - 80; ax += 300) {
+    ctx.beginPath();
+    ctx.moveTo(ax - 26, cy - 30); ctx.lineTo(ax + 26, cy); ctx.lineTo(ax - 26, cy + 30);
+    ctx.stroke();
+    ctx.beginPath(); ctx.fillStyle = '#e07b39';
+    ctx.arc(ax, cy - 66, 15, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#268496';
+  }
+  ctx.lineCap = 'butt';
+  // 左端の貼り合わせ目印 A
+  ctx.strokeStyle = '#8a5a20'; ctx.lineWidth = 5;
+  ctx.beginPath(); ctx.arc(x + 92, cy, 62, 0, Math.PI * 2); ctx.stroke();
+  ctx.fillStyle = '#8a5a20'; ctx.font = 'bold 92px sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('A', x + 92, cy + 4);
+  // のりしろ（右端）※ハッチはタブの内側だけにクリップ
+  const tx0 = x + STRIP_LEN - TAB;
+  ctx.save();
+  ctx.beginPath(); ctx.rect(tx0, y + 3, TAB - 3, STRIP_W - 6); ctx.clip();
+  ctx.fillStyle = '#f6ecd4'; ctx.fillRect(tx0, y + 3, TAB - 3, STRIP_W - 6);
+  ctx.strokeStyle = 'rgba(160,120,60,.5)'; ctx.lineWidth = 3;
+  for (let hx = tx0 - STRIP_W; hx < x + STRIP_LEN; hx += 44) {
+    ctx.beginPath(); ctx.moveTo(hx, y + STRIP_W - 4); ctx.lineTo(hx + STRIP_W, y + 4); ctx.stroke();
+  }
+  ctx.restore();
+  ctx.strokeStyle = '#8a5a20'; ctx.lineWidth = 4; ctx.setLineDash([16, 12]);
+  ctx.beginPath(); ctx.moveTo(tx0, y + 4); ctx.lineTo(tx0, y + STRIP_W - 4); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#8a5a20'; ctx.font = 'bold 64px sans-serif';
+  ctx.fillText('A', tx0 + TAB / 2, cy - 42);
+  ctx.font = 'bold 44px sans-serif';
+  ctx.fillText('のりしろ', tx0 + TAB / 2, cy + 34);
+  // 外枠（切り取り線）
+  ctx.strokeStyle = '#333'; ctx.lineWidth = 7;
+  ctx.strokeRect(x, y, STRIP_LEN, STRIP_W);
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+}
+function drawRecordBox(ctx, x, y, w, h, label) {
+  ctx.fillStyle = '#fff'; ctx.fillRect(x, y, w, h);
+  ctx.strokeStyle = '#9db8b2'; ctx.lineWidth = 3.5; ctx.strokeRect(x, y, w, h);
+  ctx.fillStyle = '#63736f'; ctx.font = 'bold 40px sans-serif';
+  ctx.fillText(label, x + 22, y + 54);
+  ctx.strokeStyle = 'rgba(120,150,145,.4)'; ctx.lineWidth = 2.5;
+  for (let ly = y + 108; ly < y + h - 24; ly += 58) {
+    ctx.beginPath(); ctx.moveTo(x + 22, ly); ctx.lineTo(x + w - 22, ly); ctx.stroke();
+  }
+}
+function buildSheet() {
+  const v = cur();
+  const cv = $('sheetcanvas');
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, SHEET_W, SHEET_H);
+  // タイトル
+  ctx.fillStyle = '#2f3437'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+  ctx.font = 'bold 88px sans-serif';
+  const titleText = 'メビウスの帯 工作キット ― ' + v.sheetTitle;
+  const maxTitleW = SHEET_W - 120 - 591 - 160 - 120; // 較正線に重ならないよう自動縮小
+  const tw = ctx.measureText(titleText).width;
+  if (tw > maxTitleW) {
+    ctx.font = 'bold ' + Math.floor(88 * maxTitleW / tw) + 'px sans-serif';
+  }
+  ctx.fillText(titleText, 120, 168);
+  ctx.font = '50px sans-serif'; ctx.fillStyle = '#63736f';
+  ctx.fillText('外周の太線で切り取り、「のりしろ A」を反対側の端 A の裏に ' + v.twist + ' ひねって貼ります', 120, 252);
+  // 5cm較正線
+  const calX = SHEET_W - 120 - 591, calY = 128;
+  ctx.strokeStyle = '#000'; ctx.lineWidth = 10;
+  ctx.beginPath(); ctx.moveTo(calX, calY); ctx.lineTo(calX + 591, calY); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(calX, calY - 26); ctx.lineTo(calX, calY + 26);
+  ctx.moveTo(calX + 591, calY - 26); ctx.lineTo(calX + 591, calY + 26);
+  ctx.stroke();
+  ctx.fillStyle = '#000'; ctx.font = 'bold 54px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('5cm', calX + 295, calY - 42);
+  ctx.textAlign = 'left';
+  // 帯 2本
+  const sx = (SHEET_W - STRIP_LEN) / 2;
+  v.strips.forEach((s, i) => {
+    const sy = 400 + i * 610;
+    ctx.fillStyle = '#2f3437'; ctx.font = 'bold 52px sans-serif';
+    ctx.fillText(s.label, sx, sy - 26);
+    drawStrip(ctx, sx, sy, s);
+    // ひねり指示（帯の右上）
+    ctx.fillStyle = '#c2571f'; ctx.font = 'bold 50px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('↻ ' + v.twist + ' ひねって貼る', sx + STRIP_LEN, sy - 26);
+    ctx.textAlign = 'left';
+  });
+  // 記録欄
+  const ry = 400 + 2 * 610 + 40;
+  ctx.fillStyle = '#2f3437'; ctx.font = 'bold 56px sans-serif';
+  ctx.fillText('実験の記録', sx, ry);
+  v.records.forEach((r, i) => {
+    const by = ry + 66 + i * 352;
+    ctx.fillStyle = '#63736f'; ctx.font = 'bold 44px sans-serif';
+    ctx.fillText(r.title, sx, by);
+    const bw = (STRIP_LEN - 40) / 2;
+    drawRecordBox(ctx, sx, by + 20, bw, 252, r.left);
+    drawRecordBox(ctx, sx + bw + 40, by + 20, bw, 252, r.right);
+  });
+  // フッター
+  ctx.fillStyle = '#84958f'; ctx.font = '46px sans-serif';
+  ctx.fillText('矢印の実験をするときは、組み立てる前に裏側にも矢印をなぞって描いておくと見やすくなります。', 120, SHEET_H - 84);
+  return cv;
+}
+
+/* ---------- UI ---------- */
+function buildTabs() {
+  const box = $('varianttabs');
+  box.innerHTML = '';
+  VARIANTS.forEach(v => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.innerHTML = v.name + '<small>' + v.sub + '</small>';
+    if (v.id === state.variant) b.classList.add('on');
+    b.addEventListener('click', () => switchVariant(v.id));
+    box.appendChild(b);
+  });
+}
+function buildExps() {
+  const v = cur();
+  const box = $('explist');
+  box.innerHTML = '';
+  v.exps.forEach(e => {
+    const div = document.createElement('div');
+    div.className = 'exp';
+    const h = document.createElement('h3');
+    h.innerHTML = '<span class="tag">' + e.tag + '</span>' + e.title;
+    div.appendChild(h);
+    const p = document.createElement('p');
+    p.className = 'steps';
+    p.textContent = e.steps;
+    div.appendChild(p);
+    const btn = document.createElement('button');
+    btn.className = 'act sub'; btn.type = 'button'; btn.textContent = 'けっかを見る';
+    const res = document.createElement('div');
+    res.className = 'result';
+    res.innerHTML = '<h4>けっか（位相幾何学で確かめた答え）</h4>';
+    const rp = document.createElement('p');
+    rp.textContent = e.result;
+    res.appendChild(rp);
+    btn.addEventListener('click', () => {
+      const open = res.classList.toggle('open');
+      btn.textContent = open ? 'けっかを隠す' : 'けっかを見る';
+    });
+    div.appendChild(btn);
+    div.appendChild(res);
+    box.appendChild(div);
+  });
+}
+function buildManual() {
+  const v = cur();
+  let html = '<h3>作り方（共通）</h3><ol>' +
+    '<li>型紙を「実際のサイズ（100%）」で印刷し、右上の線が5cmになっているか確かめます。</li>' +
+    '<li>帯を外周の太線に沿って切り取ります。</li>' +
+    '<li>矢印の実験をする場合は、組み立てる前に、帯を裏返して透けて見える矢印と印をなぞり、裏側にも同じ矢印を描いておくと見やすくなります。</li>' +
+    '<li>帯の両端を持ち、「のりしろ A」を、反対側の端（A の印）の裏側に、表示の角度だけひねって重ね、糊やテープで貼ります。A の文字が同じ向きに重なるのが目印です。</li>' +
+    '<li>乾いたら（留まったら）完成です。まず切らない実験からどうぞ。</li></ol>';
+  if (v.id === 'double') {
+    html += '<h3>2重メビウスの作り方</h3><ol>' +
+      '<li>帯①の真ん中に、色ペンで中心線を引いておきます（実験1で使います）。</li>' +
+      '<li>帯①と帯②をぴったり重ねます（端と端をそろえる）。</li>' +
+      '<li>重ねたまま一緒に半回（180°）ひねり、両端を重ねて、2枚まとめて貼ります。</li></ol>';
+  }
+  if (v.id === 'klein') {
+    html += '<h3>クラインの壺もどきの作り方</h3><ol>' +
+      '<li>基本のメビウスの帯を2枚作ります。ひねりの向きは2枚とも同じにしてください。</li>' +
+      '<li>それぞれの帯の縁は「1本の輪」になっています。その輪同士を合わせるように、少しずつテープで留めていきます。</li>' +
+      '<li>無理に引っ張ると紙が破れます。途中で合わせきれなくなるのが、この模型の「近似」と言われるゆえんです。それも観察のうちです。</li></ol>' +
+      '<p class="note">クラインの壺は近似模型です。本物の形は3次元では作れません。無理をせず、「ここまでが紙で表せる限界」を楽しんでください。</p>';
+  }
+  html += '<h3>うまくいかないとき</h3><ul>' +
+    '<li>切る実験で「線が途中で途切れた」と感じたら、そのまま切り続けてください。メビウスの帯では、中心線も1/3の線も、1周では戻らず2周してつながることがあります。それが正しい切り方です。</li>' +
+    '<li>帯がよれてしまうときは、厚めの紙（画用紙など）に印刷すると作りやすくなります。</li>' +
+    '<li>印刷が大きすぎる・小さすぎるときは、印刷設定の「実際のサイズ」を確認し、5cmの線で確かめてください。</li></ul>';
+  $('manual-body').innerHTML = html;
+  $('sheetnote').textContent = '「' + v.name + '」の型紙です（A4判・横向き）。帯は2本入っています。実験の記録欄つき。';
+}
+function switchVariant(id) {
+  state.variant = id;
+  buildTabs();
+  buildExps();
+  buildManual();
+  buildSheet();
+}
+function init() {
+  $('btn-download').addEventListener('click', () => {
+    const cv = buildSheet();
+    cv.toBlob(blob => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'mobius-' + state.variant + '-A4.png';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    }, 'image/png');
+  });
+  switchVariant('basic');
+  window.__mobBooted = true;
+  clearTimeout(window.__mobBootTimer);
+}
+window.__mob = {
+  VARIANTS,
+  setVariant: id => switchVariant(id),
+  buildSheet,
+  sheetMetrics: { SHEET_W, SHEET_H, STRIP_LEN, STRIP_W }
+};
+init();
+
+</script>
+</body>
+</html>
